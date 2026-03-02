@@ -1,0 +1,520 @@
+@font-face{
+	src: url(fonts/PPTelegraf-Regular.otf);
+	font-family: 'telegraf';
+}
+
+@font-face{
+	src: url(fonts/PPTelegraf-UltraBold.otf);
+	font-family: 'telegrafb';
+}
+
+@font-face{
+	  font-family: 'canvas';
+    src: url('fonts/Sans.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.body{
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	
+}
+.navbar {
+  background: linear-gradient(to right, #000000 45%, #f5ad4f 100%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position:sticky;/* 设置定位，为 z-index 提供作用 */
+  top: 0; /* 紧贴页面顶部 */
+  width: 100%; /* 占满宽度 */
+  z-index: 10; /* 确保导航栏在其他内容之上 */
+  height: 70px; /* 固定高度 */
+}
+
+
+
+/* 屏幕宽度大于768px时 */
+@media (min-width: 1220px) {
+    .navbar-collapse {
+    display: flex ;/* 覆盖 Bootstrap 的默认行为 */
+  }
+	
+}
+
+
+
+/* 移动端视图 */
+@media (max-width: 1220px)  { /* 根据需要调整断点 */
+    .navbar {
+		position: sticky; /* 保证 .navbar-collapse 相对于它定位 */
+		top: 0;
+		z-index: 1000;
+    }
+
+    .navbar-collapse {
+	
+	  position: fixed; /* Ensure it stays on top */
+	  top: 70px; /* Adjust based on the navbar height */
+	  width: 100%;
+	 
+ 
+		right: 0; /* Start off-screen */
+		background-color: rgba(0, 0, 0, 0.9);
+		z-index: 999;
+	  display: flex;
+	  flex-direction: column;
+		 align-items: center;
+		transition: transform 0.3s ease; /* 平滑的滑动动画 */
+        transform: translateX(100%); /* 初始隐藏在屏幕右侧 */
+}
+	
+	.navbar-toggler {
+    display: block !important; /* 显示汉堡菜单按钮 */
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+	  .navbar-collapse.show {
+         transform: translateX(0); /* 显示时滑入屏幕 */
+    }
+
+  
+
+	
+	
+    /* 可选：导航链接的样式 */
+    .nav-link, .search-container{
+        color: white; /* 设置链接颜色 */
+        margin: 20px 0px; /* 增加内边距 */
+        text-align: center; /* 居中文本 */
+    }
+	
+	/* 悬停效果 */
+	.nav-link:hover {
+    color: #f5ad4f; /* 悬停时的颜色 */
+	}
+	
+
+    .dropdown-menu {
+        /* 确保下拉菜单在手机上居中 */
+		
+		text-align: center;
+        left: 50%;
+        width: 100%; /* 下拉菜单宽度100% */
+        top: 100%; /* 下拉菜单在按钮下方显示 */
+    }	
+}
+
+.navbar-logo{
+	z-index: 1500;
+}
+
+/* Logo 样式 */
+.navbar-logo img {
+  width: 70px;
+  height: auto;
+
+	
+}
+
+/* 链接样式 */
+.nav-link {
+  color: white;
+  font-size: 18px;
+  display: block;
+  align-items: center;
+  text-align: center;
+	text-decoration: none; /* 去掉下划线 */
+	transition: color 0.3s ease; /* 平滑过渡效果 */
+	 flex-shrink: 0; /* 确保链接不会缩小 */
+}
+
+
+
+
+/* 悬停效果 */
+#nav-link:hover,
+#nav-link:active,
+#nav-link:focus {
+    color: #f5ad4f;
+}
+
+/* 调整图标的大小 */
+.nav-link img {
+  height: auto; /* 自动保持比例 */
+  width: 30px; /* 根据需要调整图标的高度 */
+  margin-right: 8px; /* 图标和文本之间的间距 */
+}
+
+
+.navleft{
+	display: flex;
+	align-content: center;
+	justify-content: space-around;
+	margin: 0px -30px;
+	
+
+}
+
+.navleft .nav-item {
+    margin: 0 40px; /* 为每个 nav-item 添加左右间距 */
+	
+}
+
+/* 下拉菜单容器 */
+.dropdown-menu {
+    display: none; /* 默认隐藏 */
+    position: absolute;
+    top: 100%; /* 在链接下方显示 */
+    left: 0;
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    z-index: 1000; /* 确保下拉菜单在其他内容之上 */
+    padding: 0; /* 删除内边距 */
+    list-style: none; /* 删除默认列表样式 */
+
+}
+
+
+
+/* 下拉菜单项样式 */
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+/* 下拉菜单项悬停效果 */
+.dropdown-menu a:hover {
+    background-color: #f5ad4f; /* 悬停时的背景色 */
+    color: black; /* 悬停时的文本颜色 */
+}
+
+
+
+/* 保持 Explore 链接在被点击后的颜色 */
+.nav-link.dropdown-toggle {
+    color: white !important; /* 保持 Explore 链接的颜色 */
+}
+
+/* 点击后 Explore 链接的文字保持颜色 */
+.nav-link.dropdown-toggle:focus, 
+.nav-link.dropdown-toggle:active {
+    color: #f5ad4f !important; /* 可以根据需要更改颜色 */
+}
+
+
+
+.navmid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+
+/* 搜索框样式 */
+.navmid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 搜索框样式 */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 150px;
+    max-width: 600px;
+    flex-grow: 1;
+}
+
+.search-container form {
+  width: 100%; /* 让表单填满搜索容器 */
+}
+
+.search {
+   display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 28px;
+    background: #f6f6f6;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-input {
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 100%; /* 让输入框填满剩余空间 */
+
+}
+
+.search-icon {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-right: 10px; /* 稍微增加图标和输入框之间的距离 */
+}
+
+.search:focus-within {
+    box-shadow: 0 0 18px rgba(255, 255, 255, 1);
+}
+
+.navright {
+    display: flex;
+    justify-content: space-around; /* 均匀分配子项之间的间隔 */
+    align-items: center; /* 垂直居中对齐 */
+	 flex-direction: column;
+}
+
+.navright .nav-item {
+    margin: 0 30px; /* 为每个 nav-item 添加左右间距 */
+}
+
+
+.bgm1 {
+    position: absolute;
+    top: -55%;
+    left: 0;
+    width: 100%;
+    height: 130vh; /* 增加高度以确保覆盖所需区域 */
+    overflow: hidden;
+}
+
+
+
+.bgm1 img {
+    width: 100vw;
+    height: 100%;
+    object-position: center top; /* 调整图片位置 */
+}
+
+.bgm1-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, #2b2b2b 35%, transparent); /* 从底部的黑色渐变到顶部的透明 */
+    pointer-events: none; /* 确保渐变不影响图片的交互 */
+	
+}
+
+.bgm2 {
+    background-color: #2b2b2b;
+    height: 47vh;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+
+}
+
+.bgm2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* 从底部开始 */
+    left: 0;
+    right: 0;
+    height: 25vh; /* 设置渐变的高度 */
+    background: linear-gradient(to top, #ffbc65 , transparent); /* 橙色到透明的渐变 */
+    z-index: 1; /* 确保渐变在内容下面 */
+}
+.title {
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 100%;
+    text-align: center;
+	font-family: telegrafb;
+
+}
+
+.title h1 {
+    font-size: 4.7em;
+    display: flex; /* 使用 flex 布局 */
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: center; /* 居中对齐 */
+	font-weight: 550;
+}
+
+.quote {
+    color: #ff9900;
+    white-space: nowrap; /* 防止引号单独换行 */
+}
+
+.text {
+    white-space: nowrap; /* 确保 "Crafting Worlds," 不换行 */
+}
+
+.title2{
+	display: flex;
+	justify-content: center;
+	color: white;
+
+	
+}
+
+.title2 h1 {
+    font-size: 3em;
+}
+
+.text2 {
+    position: relative; /* 相对定位，以便伪元素相对于文本 */
+	font-family: canvas;
+}
+
+.text2::after {
+    content: ""; /* 伪元素需要内容才能显示 */
+    display: block; /* 使其为块元素 */
+    height: 5px; /* 下划线高度 */
+    background-color: white; /* 下划线颜色 */
+    margin-top: 5px; /* 调整与文字的距离 */
+    width: 100%; /* 下划线宽度 */
+    position: absolute; /* 绝对定位 */
+    left: 0; /* 使下划线从文本左侧开始 */
+    bottom: -10px; /* 下划线与文本的距离 */
+}
+
+
+.contact-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 使图标和文本水平居中 */
+    width: 210px;
+    color: aliceblue;
+    font-size: 1.5em;
+    text-align: center; /* 确保文本居中 */
+	z-index: 2;
+}
+
+.contact-link {
+    display: flex; /* 使链接成为flex容器 */
+    flex-direction: column; /* 使内容垂直排列 */
+    align-items: center; /* 中心对齐 */
+    text-decoration: none; /* 去掉下划线 */
+    color: aliceblue; /* 设置文字颜色 */
+	font-family: canvas;
+}
+
+.contact-link:hover {
+    color: lightgray; /* 鼠标悬停时的颜色 */
+}
+
+.icon {
+    width: auto;
+    height: 80px;
+	margin-bottom: 10px;
+}
+
+
+
+
+@media (max-width: 1220px) {
+    .bgm1 {
+        height: 120vh; /* 调整为100vh，覆盖整个视口高度 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    
+    .bgm1 img {
+        width: 135vw; /* 保持图片宽度为150vw */
+        height: auto;
+        object-position: center; /* 居中图片 */
+
+    }
+	
+	.bgm2 {
+ 
+    height: 70vh;
+    width: 100%;
+    position: absolute;
+
+	}
+	
+	.bgm2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* 从底部开始 */
+    left: 0;
+    right: 0;
+    height: 50vh; /* 设置渐变的高度 */
+    background: linear-gradient(to top, #ffbc65  , transparent, transparent, transparent); /* 橙色到透明的渐变 */
+    z-index: 1; /* 确保渐变在内容下面 */
+}
+	
+	
+	.title h1 {
+        font-size: 2em; /* 缩小手机端字体 */
+        white-space: normal; /* 允许换行 */
+	
+    }
+
+    .mobile-line-break {
+        display: block; /* 确保 "One Pixel at a Time" 换行 */
+    }
+
+	.title2 h1 {
+    font-size: 1.5em;
+	}
+	
+	.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 使图标和文本水平居中 */
+    width: 210px;
+    color: aliceblue;
+    font-size: 1.2em;
+    text-align: center; /* 确保文本居中 */
+
+	}
+	
+	.icon {
+    width: auto;
+    height: 80px;
+	margin: 10px 0px;;
+	}
+	
+	.location-item {
+    order: 4; /* 将 Location 图标放在前面 */
+	}
+
+	.phone-item {
+		order: 3; /* 将 Phone 图标放在后面 */
+	}
+
+/* 其他图标的 order */
+	.contact-item:not(.location-item):not(.phone-item) {
+		order: 3; /* 将其他图标放在最后 */
+	}
+	
+}

@@ -1,0 +1,496 @@
+@font-face{
+	src: url(fonts/PPTelegraf-Regular.otf);
+	font-family: 'telegraf';
+}
+
+@font-face{
+	src: url(fonts/PPTelegraf-UltraBold.otf);
+	font-family: 'telegrafb';
+}
+
+@font-face{
+	  font-family: 'canvas';
+    src: url('fonts/Sans.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #2b2b2b; /* 确保背景色覆盖全屏 */
+	display: flex;
+	flex-direction: column;
+   
+}
+.navbar {
+  background: linear-gradient(to right, #000000 45%, #f5ad4f 100%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position:sticky;/* 设置定位，为 z-index 提供作用 */
+  top: 0; /* 紧贴页面顶部 */
+  width: 100%; /* 占满宽度 */
+  z-index: 10; /* 确保导航栏在其他内容之上 */
+  height: 70px; /* 固定高度 */
+}
+
+
+
+/* 屏幕宽度大于768px时 */
+@media (min-width: 1220px) {
+    .navbar-collapse {
+    display: flex ;/* 覆盖 Bootstrap 的默认行为 */
+  }
+	
+}
+
+
+
+/* 移动端视图 */
+@media (max-width: 1220px)  { /* 根据需要调整断点 */
+    .navbar {
+		position: sticky; /* 保证 .navbar-collapse 相对于它定位 */
+		top: 0;
+		z-index: 1000;
+    }
+
+    .navbar-collapse {
+	
+	  position: fixed; /* Ensure it stays on top */
+	  top: 70px; /* Adjust based on the navbar height */
+	  width: 100%;
+	 
+ 
+		right: 0; /* Start off-screen */
+		background-color: rgba(0, 0, 0, 0.9);
+		z-index: 999;
+	  display: flex;
+	  flex-direction: column;
+		 align-items: center;
+		transition: transform 0.3s ease; /* 平滑的滑动动画 */
+        transform: translateX(100%); /* 初始隐藏在屏幕右侧 */
+}
+	
+	.navbar-toggler {
+    display: block !important; /* 显示汉堡菜单按钮 */
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+	  .navbar-collapse.show {
+         transform: translateX(0); /* 显示时滑入屏幕 */
+    }
+
+  
+
+	
+	
+    /* 可选：导航链接的样式 */
+    .nav-link, .search-container{
+        color: white; /* 设置链接颜色 */
+        margin: 20px 0px; /* 增加内边距 */
+        text-align: center; /* 居中文本 */
+    }
+	
+	/* 悬停效果 */
+	.nav-link:hover {
+    color: #f5ad4f; /* 悬停时的颜色 */
+	}
+	
+
+    .dropdown-menu {
+        /* 确保下拉菜单在手机上居中 */
+		
+		text-align: center;
+        left: 50%;
+        width: 100%; /* 下拉菜单宽度100% */
+        top: 100%; /* 下拉菜单在按钮下方显示 */
+    }	
+}
+
+.navbar-logo{
+	z-index: 1500;
+}
+
+/* Logo 样式 */
+.navbar-logo img {
+  width: 70px;
+  height: auto;
+
+	
+}
+
+/* 链接样式 */
+.nav-link {
+  color: white;
+  font-size: 18px;
+  display: block;
+  align-items: center;
+  text-align: center;
+	text-decoration: none; /* 去掉下划线 */
+	transition: color 0.3s ease; /* 平滑过渡效果 */
+	 flex-shrink: 0; /* 确保链接不会缩小 */
+}
+
+
+
+
+/* 悬停效果 */
+#nav-link:hover,
+#nav-link:active,
+#nav-link:focus {
+    color: #f5ad4f;
+}
+
+/* 调整图标的大小 */
+.nav-link img {
+  height: auto; /* 自动保持比例 */
+  width: 30px; /* 根据需要调整图标的高度 */
+  margin-right: 8px; /* 图标和文本之间的间距 */
+}
+
+
+.navleft{
+	display: flex;
+	align-content: center;
+	justify-content: space-around;
+	margin: 0px -30px;
+	
+
+}
+
+.navleft .nav-item {
+    margin: 0 40px; /* 为每个 nav-item 添加左右间距 */
+	
+}
+
+/* 下拉菜单容器 */
+.dropdown-menu {
+    display: none; /* 默认隐藏 */
+    position: absolute;
+    top: 100%; /* 在链接下方显示 */
+    left: 0;
+    background-color: #222;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    z-index: 1000; /* 确保下拉菜单在其他内容之上 */
+    padding: 0; /* 删除内边距 */
+    list-style: none; /* 删除默认列表样式 */
+	 transform: translateY(10px); /* 下移 10px */
+}
+
+
+
+/* 下拉菜单项样式 */
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+/* 下拉菜单项悬停效果 */
+.dropdown-menu a:hover {
+    background-color: #f5ad4f; /* 悬停时的背景色 */
+    color: black; /* 悬停时的文本颜色 */
+}
+
+
+
+/* 保持 Explore 链接在被点击后的颜色 */
+.nav-link.dropdown-toggle {
+    color: white !important; /* 保持 Explore 链接的颜色 */
+}
+
+/* 点击后 Explore 链接的文字保持颜色 */
+.nav-link.dropdown-toggle:focus, 
+.nav-link.dropdown-toggle:active {
+    color: #f5ad4f !important; /* 可以根据需要更改颜色 */
+}
+
+
+
+.navmid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+
+/* 搜索框样式 */
+.navmid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 搜索框样式 */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 150px;
+    max-width: 600px;
+    flex-grow: 1;
+}
+
+.search-container form {
+  width: 100%; /* 让表单填满搜索容器 */
+}
+
+.search {
+   display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 28px;
+    background: #f6f6f6;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-input {
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 100%; /* 让输入框填满剩余空间 */
+
+}
+
+.search-icon {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-right: 10px; /* 稍微增加图标和输入框之间的距离 */
+}
+
+.search:focus-within {
+    box-shadow: 0 0 18px rgba(255, 255, 255, 1);
+}
+
+.navright {
+    display: flex;
+    justify-content: space-around; /* 均匀分配子项之间的间隔 */
+    align-items: center; /* 垂直居中对齐 */
+	 flex-direction: column;
+}
+
+.navright .nav-item {
+    margin: 0 30px; /* 为每个 nav-item 添加左右间距 */
+}
+
+
+
+
+
+
+
+
+.second-container {
+	color: #ffffff;
+    width: 90%;
+    height: calc(100vh - 70px); /* 适应导航栏高度 */
+    padding: 20px;
+    margin: 0 auto;
+    box-sizing: border-box; /* 确保 padding 和 border 不影响总宽度 */
+        }
+
+
+.content{
+	display: flex;
+	
+	min-height: 75vh; /* 设置最大高度为 75vh，当内容较多时允许扩展到这个高度 */
+    overflow: auto; /* 允许出现滚动条，以防止内容溢出 */
+    transition: height 0.3s ease; /* 添加高度变化的过渡动画 */
+	
+}
+
+
+        h1 {
+            margin-bottom: 20px;
+			color: #ffffff;
+			font-family: canvas;
+        }
+
+		
+
+        .upload-area {
+		   border: 8px dotted white; /* 使用白色点状线条作为边框 */
+			padding: 20px; /* 增加内边距 */
+			align-content: center;
+			text-align: center;
+			width: 100%; /* 增加宽度为父容器的80% *
+			box-sizing: border-box; /* 确保 padding 和 border 不影响总宽度 */
+			margin: 0 auto;
+			box-sizing: border-box; /* 确保 padding 不影响总宽度 */
+			display: block; /* 确保区域是一个块级元素 */
+			
+
+ 
+  
+        }
+        .upload-icon {
+			width: 200px;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+		.Addimg{
+			font-weight: bold;
+			font-size: 2em;
+			font-family: canvas;
+		
+		}
+
+		.tips{
+			margin: 25px 0px;
+
+		}
+
+			/* 图片预览样式 */
+		#imagePreview {
+			display: flex;
+			flex-wrap: wrap; /* 照片可换行 */
+			gap: 20px; /* 照片之间的间距 */
+			justify-content: center; /* 水平居中 */
+			width: 100%;
+		}
+
+		#imagePreview img {
+			  max-width: calc(50% - 10px); /* 每张图片占据容器宽度的50%，同时减去间距 */
+				max-height: 420px;
+				object-fit: contain;
+				margin-top: 10px;
+				box-sizing: border-box;
+			
+		}
+
+
+        .btn {
+           background: linear-gradient(to right, #ffde59, #ff914d); /* 从黄到橙的渐变背景 */
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+			border-radius: 50px; /* 椭圆形状 */
+			 font-size: 1.1em;
+			padding: 10px 30px; /* 根据需要调整按钮的大小 */
+			font-family: canvas;
+		
+        }
+		
+		.btn:hover{
+            background: linear-gradient(to right, orange, yellow); /* 悬停时的渐变效果 */
+            color: black;
+         
+        }
+
+		.form-area {
+			width: 30%;
+			padding: 15px;
+			border-radius: 5px;
+			justify-content: center;
+			
+			
+		}
+
+
+
+        .form-group {
+            margin-bottom: 15px;
+			
+        }
+        .form-group label {
+			font-size: 2em;
+            display: block;
+            margin-bottom: 5px;
+			font-family: canvas;
+        }
+
+		#title{
+			border: none; /* 去除所有边框 */
+			border-bottom: 3px solid #666; /* 只显示底部边框 */
+			width: 100%; /* 使元素占据全宽 */
+			padding: 8px; /* 添加内边距 */
+			background-color: #2b2b2b; /* 背景颜色 */
+			color: white; /* 文字颜色 */
+			box-sizing: border-box; /* 确保 padding 不影响总宽度 */
+		}
+		
+		/* 当输入框获得焦点时 */
+		#title:focus {
+			border: none; /* 保持无边框 */
+			border-bottom: 3px solid #666; /* 仅保留底部边框 */
+			outline: none; /* 移除默认的聚焦样式 */
+			box-shadow: none; /* 确保没有阴影效果 */
+		}
+
+		#description{
+			width: 100%;
+			min-height: 200px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 3px solid #666;
+            background-color: #333;
+            color: white;
+			resize: none;
+		
+		}
+
+		#publishBtn{
+			display: block; /* 将按钮设为块级元素 */
+			margin: 20px auto; /* 上下20px间距，左右自动居中 */
+			text-align: center;
+			border: none;
+			background-color: blue;
+			cursor: pointer;
+        }
+       
+
+
+
+
+        @media (max-width: 768px) {
+           .content {
+				display: flex;
+				flex-direction: column; /* 移动端垂直排列 */
+				gap: 20px;
+			}
+
+			#imagePreview {
+				flex-direction: column; /* 移动端垂直排列照片 */
+			}
+
+			#imagePreview img {
+				max-width: 100%; /* 移动端图片宽度设置为100% */
+			}
+
+			.upload-area {
+				border: 8px dotted white;
+				padding: 20px;
+				text-align: center;
+				width: 100%;
+				margin: 0 auto;
+			}
+
+			.upload-icon {
+				width: 100px;
+				font-size: 48px;
+				margin-bottom: 10px;
+			}
+
+			.form-area {
+				width: 100%;
+			}
+            
+        }
